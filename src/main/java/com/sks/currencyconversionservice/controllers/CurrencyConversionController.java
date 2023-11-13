@@ -2,6 +2,8 @@ package com.sks.currencyconversionservice.controllers;
 
 import java.math.BigDecimal;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +15,9 @@ import com.sks.currencyconversionservice.models.CurrencyConversion;
 
 @RestController
 public class CurrencyConversionController {
+	
+	private Logger logger = LoggerFactory.getLogger(CurrencyConversionController.class);
+	
 	@Autowired
 	private CurrencyExchangeProxy cep ;
 	
@@ -23,6 +28,9 @@ public class CurrencyConversionController {
 	public CurrencyConversion calculateCurrencyConversion(@PathVariable String from, @PathVariable String to,
 			@PathVariable BigDecimal quantity) {
 
+		//CHANGE-KUBERNETES
+		logger.info("calculateCurrencyConversion called with {} to {} with {}", from, to, quantity);
+		
 //		HashMap<String,String> uriVars = new HashMap();
 //		uriVars.put("from","USD");
 //		uriVars.put("to", "INR");
